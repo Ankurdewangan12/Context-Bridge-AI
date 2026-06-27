@@ -1,0 +1,50 @@
+{
+  "manifest_version": 3,
+  "name": "ContextBridge AI",
+  "version": "0.1.0",
+  "description": "Transfer your conversation context seamlessly between ChatGPT, Claude, Gemini, Grok, and Perplexity.",
+  "permissions": ["storage", "activeTab", "scripting", "clipboardWrite", "tabs"],
+  "host_permissions": [
+    "https://chat.openai.com/*",
+    "https://chatgpt.com/*",
+    "https://claude.ai/*",
+    "https://gemini.google.com/*",
+    "https://grok.com/*",
+    "https://x.com/i/grok*",
+    "https://www.perplexity.ai/*"
+  ],
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "ContextBridge AI"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://chat.openai.com/*", "https://chatgpt.com/*"],
+      "js": ["content_scripts/chatgpt.js"]
+    },
+    {
+      "matches": ["https://claude.ai/*"],
+      "js": ["content_scripts/claude.js"]
+    },
+    {
+      "matches": ["https://gemini.google.com/*"],
+      "js": ["content_scripts/gemini.js"]
+    },
+    {
+      "matches": ["https://grok.com/*", "https://x.com/i/grok*"],
+      "js": ["content_scripts/grok.js"]
+    },
+    {
+      "matches": ["https://www.perplexity.ai/*"],
+      "js": ["content_scripts/perplexity.js"]
+    }
+  ],
+  "icons": {
+    "16": "icons/icon16.png",
+    "48": "icons/icon48.png",
+    "128": "icons/icon128.png"
+  }
+}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>ContextBridge AI</title>
+  <link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="app-header">
+      <span class="logo-dot"></span>
+      <h1>ContextBridge AI</h1>
+    </header>
+
+    <main id="view-transfer" class="view active">
+      <div class="field">
+        <label for="sourceAi">Source AI</label>
+        <select id="sourceAi">
+          <option value="claude">Claude</option>
+          <option value="chatgpt">ChatGPT</option>
+          <option value="gemini">Gemini</option>
+          <option value="grok">Grok</option>
+          <option value="perplexity">Perplexity</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label for="targetAi">Target AI</label>
+        <select id="targetAi">
+          <option value="chatgpt">ChatGPT</option>
+          <option value="claude">Claude</option>
+          <option value="gemini">Gemini</option>
+          <option value="grok">Grok</option>
+          <option value="perplexity">Perplexity</option>
+        </select>
+      </div>
+
+      <button id="btnTransfer" class="btn btn-primary">
+        Transfer Context
+      </button>
+
+      <div id="statusBox" class="status hidden"></div>
+
+      <div id="promptBox" class="prompt-box hidden">
+        <label for="promptText">Generated prompt (edit if needed)</label>
+        <textarea id="promptText" rows="8"></textarea>
+        <div class="button-row">
+          <button id="btnCopy" class="btn btn-secondary">Copy Prompt</button>
+          <button id="btnOpenTarget" class="btn btn-primary">Open Target AI</button>
+        </div>
+      </div>
+
+      <button id="btnShowHistory" class="btn btn-link">View History</button>
+    </main>
+
+    <section id="view-history" class="view">
+      <div class="history-header">
+        <button id="btnBackToTransfer" class="btn btn-link">&larr; Back</button>
+        <h2>Session History</h2>
+      </div>
+      <ul id="historyList" class="history-list"></ul>
+      <p id="historyEmpty" class="empty-state hidden">No sessions yet.</p>
+    </section>
+  </div>
+
+  <script src="storage.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
