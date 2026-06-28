@@ -17,6 +17,14 @@ from routes.reconstruct import router as reconstruct_router
 from routes.summarize import router as summarize_router
 
 logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("contextbridge.main")
+
+if not settings.GEMINI_API_KEY:
+    logger.warning(
+        "GEMINI_API_KEY is not set! /summarize and /reconstruct will fail or "
+        "fall back to templates. Check that backend/.env exists and contains "
+        "a real key (copy backend/.env.example to backend/.env first)."
+    )
 
 app = FastAPI(
     title="ContextBridge AI API",

@@ -3,6 +3,8 @@ ContextBridge AI — Backend Configuration
 Loads environment variables from a .env file (kept OUT of version control).
 """
 
+import os
+
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
 
@@ -36,3 +38,12 @@ class Settings(BaseSettings):
 
 # Single shared settings instance — import this elsewhere as `from config import settings`
 settings = Settings()
+
+# IMPORTANT: the underlying google-generativeai SDK (used by
+# langchain-google-genai) checks the GOOGLE_API_KEY environment variable
+# directly. If it's not set, the SDK can silently fall back to Application
+# Default Credentials (ADC) and fail with a confusing "default credentials
+# were not found" error — even though we passed a key into the chain.
+# Setting it here, once, at import time, guarantees the SDK always sees it.
+if settings.GEMINI_API_KEY:
+    os.environ["GOOGLE_API_KEY"] = settings.GEMINI_API_KEY
